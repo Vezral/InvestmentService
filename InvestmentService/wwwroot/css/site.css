@@ -28,41 +28,48 @@ body {
     border-bottom: 1px solid black;
 }
 
-#index-root .section .section-header label {
-    text-align: left;
-    font-size: 2rem;
-}
+    #index-root .section .section-header label {
+        text-align: left;
+        font-size: 2rem;
+    }
 
 #index-root .card-container {
     display: flex;
     flex-flow: row wrap;
+    gap: 5px;
 }
 
     #index-root .card-container .card {
-        margin: 5px;
-        width: 45%;
+        width: 100%;
     }
 
-        #index-root .card-container .card .consultant-table {
-            margin: 5px;
-            border-collapse: separate;
-            border-spacing: 5px 1px;
-            text-align: left;
-            width: 100%;
-        }
-
-        #index-root .card-container .card .customer-table {
-            margin: 5px;
-            border-collapse: separate;
-            border-spacing: 5px 1px;
-            text-align: left;
-            width: 100%;
-        }
-
-            #index-root .card-container .card .table-button-row {
-                text-align: right;
-            }
-
-    #index-root .discretionary-rule-table {
-        border: 1px solid black;
+@media (min-width: 768px) {
+    #index-root .card-container .card {
+        width: 33%;
+        min-width: 300px;
     }
+}
+
+#index-root .card-container .card .consultant-table {
+    margin: 5px;
+    border-collapse: separate;
+    border-spacing: 5px 1px;
+    text-align: left;
+    width: 100%;
+}
+
+#index-root .card-container .card .customer-table {
+    margin: 5px;
+    border-collapse: separate;
+    border-spacing: 5px 1px;
+    text-align: left;
+    width: 100%;
+}
+
+#index-root .card-container .card .table-button-row {
+    text-align: right;
+}
+
+#index-root .discretionary-rule-table {
+    border: 1px solid black;
+}
