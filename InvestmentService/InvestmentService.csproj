@@ -8,4 +8,8 @@
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://carafe.fm/schema/draft-02/bundle.schema.json" /></VisualStudio></ProjectExtensions>
 
+  <ItemGroup>
+    <ProjectReference Include="..\InvestmentService.DataAccess\InvestmentService.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
