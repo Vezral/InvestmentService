@@ -1,18 +1,68 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+#index-root .section:not(:first-child) {
+    margin-top: 20px;
+}
+
+#index-root .section .section-header {
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    border-bottom: 1px solid black;
+}
+
+#index-root .section .section-header label {
+    text-align: left;
+    font-size: 2rem;
+}
+
+#index-root .card-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+    #index-root .card-container .card {
+        margin: 5px;
+        width: 45%;
+    }
+
+        #index-root .card-container .card .consultant-table {
+            margin: 5px;
+            border-collapse: separate;
+            border-spacing: 5px 1px;
+            text-align: left;
+            width: 100%;
+        }
+
+        #index-root .card-container .card .customer-table {
+            margin: 5px;
+            border-collapse: separate;
+            border-spacing: 5px 1px;
+            text-align: left;
+            width: 100%;
+        }
+
+            #index-root .card-container .card .table-button-row {
+                text-align: right;
+            }
+
+    #index-root .discretionary-rule-table {
+        border: 1px solid black;
+    }

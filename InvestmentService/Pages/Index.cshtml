@@ -4,7 +4,153 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="index-root" class="text-center">
+    <div class="section">
+        <div class="section-header">
+            <label>Consultants</label>
+        </div>
+        <div class="section-content">
+            <div class="card-container">
+                @foreach (var consultant in Model.ConsultantInfos)
+                {
+                    <div class="card">
+                        <form asp-page-handler="customer" method="post">
+                            <input type="hidden" name="consultantInfoId" value="@consultant.ConsultantInfoId" />
+                            <table class="consultant-table">
+                                <tbody>
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td>@consultant.FirstName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td>@consultant.LastName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>@consultant.EmailAddress</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No</td>
+                                        <td>@consultant.MobileNo</td>
+                                    </tr>
+                                    <tr class="table-button-row">
+                                        <td colspan="2">
+                                            <button class="">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    @if (Model.SelectedConsultantInfoId.HasValue)
+    {
+        var consultant = Model.ConsultantInfos.Single(x => x.ConsultantInfoId == Model.SelectedConsultantInfoId.Value);
+        var customers = consultant.CustomerInfos;
+        var customerSectionHeaderText = $"{consultant.FirstName}'s Customers";
+        <div class="section">
+            <div class="section-header">
+                <label>@customerSectionHeaderText</label>
+            </div>
+            <div class="section-content">
+                <div class="card-container">
+                    @foreach (var customer in customers)
+                    {
+                        <div class="card">
+                            <form asp-page-handler="discretionaryRule" method="post">
+                                <input type="hidden" name="consultantInfoId" value="@customer.ConsultantId" />
+                                <input type="hidden" name="customerInfoId" value="@customer.CustomerId" />
+                                <table class="customer-table">
+                                    <tr>
+                                        <td>First Name</td>
+                                        <td>@customer.FirstName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td>@customer.LastName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Address</td>
+                                        <td>@customer.Address</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender</td>
+                                        <td>@customer.Gender</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DOB</td>
+                                        <td>@customer.DOB</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile No</td>
+                                        <td>@customer.MobileNo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>@customer.EmailAddress</td>
+                                    </tr>
+                                    <tr class="table-button-row">
+                                        <td colspan="2">
+                                            <button class="">View</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (Model.SelectedCustomerInfoId.HasValue)
+        {
+            var customer = customers.Single(x => x.CustomerId == Model.SelectedCustomerInfoId.Value);
+            var discretionaryRules = customer.DiscretionaryRules;
+            var discretionaryRuleSectionHeaderText = $"{customer.FirstName}'s Discretionary Rules";
+            <div class="section">
+                <div class="section-header">
+                    <label>@discretionaryRuleSectionHeaderText</label>
+                </div>
+                <div class="section-content">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>ID</td>
+                                <td>Customer Buy</td>
+                                <td>Customer Sell</td>
+                                <td>Consultant Buy</td>
+                                <td>Consultant Sell</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        @foreach (var discretionaryRule in discretionaryRules)
+                        {
+                            <tr>
+                                <td>@discretionaryRule.DiscretionaryRuleId</td>
+                                <td>
+                                    <input type="checkbox" @(discretionaryRule.CustomerBuy == true ? "checked" : "") />
+                                </td>
+                                <td>
+                                    <input type="checkbox" @(discretionaryRule.CustomerSell == true ? "checked" : "") />
+                                </td>
+                                <td>
+                                    <input type="checkbox" @(discretionaryRule.ConsultantBuy == true ? "checked" : "") />
+                                </td>
+                                <td>
+                                    <input type="checkbox" @(discretionaryRule.ConsultantSell == true ? "checked" : "") />
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+    }
 </div>
