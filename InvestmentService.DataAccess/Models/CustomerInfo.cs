@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InvestmentService.DataAccess.Models
 {
@@ -14,5 +15,9 @@ namespace InvestmentService.DataAccess.Models
         public DateTime? DOB { get; set; }
         public string? MobileNo { get; set; }
         public string? EmailAddress { get; set; }
+
+        [ForeignKey("ConsultantId")]
+        public ConsultantInfo ConsultantInfo { get; set; } = null!;
+        public List<DiscretionaryRule> DiscretionaryRules { get; set; } = null!;
     }
 }

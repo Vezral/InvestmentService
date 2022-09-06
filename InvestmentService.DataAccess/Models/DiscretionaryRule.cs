@@ -17,5 +17,10 @@ namespace InvestmentService.DataAccess.Models
         public bool? CustomerSell { get; set; }
         public bool? ConsultantBuy { get; set; }
         public bool? ConsultantSell { get; set; }
+
+        [ForeignKey("ConsultantId")]
+        public ConsultantInfo ConsultantInfo { get; set; } = null!;
+        [ForeignKey("CustomerId")]
+        public CustomerInfo CustomerInfo { get; set; } = null!;
     }
 }

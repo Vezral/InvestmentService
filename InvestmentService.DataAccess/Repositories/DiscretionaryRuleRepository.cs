@@ -20,7 +20,10 @@ namespace InvestmentService.DataAccess.Repositories
 
         public async Task<DiscretionaryRule?> GetAsync(int id)
         {
-            return await _dbContext.DiscretionaryRules.SingleOrDefaultAsync(discretionaryRule => discretionaryRule.DiscretionaryRuleId == id);
+            return await _dbContext.DiscretionaryRules
+                .Include(discretionaryInfo => discretionaryInfo.ConsultantInfo)
+                .Include(discretionaryInfo => discretionaryInfo.CustomerInfo)
+                .SingleOrDefaultAsync(discretionaryRule => discretionaryRule.DiscretionaryRuleId == id);
         }
 
         public async Task<List<DiscretionaryRule>> GetAsync(DiscretionaryRuleFilter? filter = null)
@@ -28,6 +31,8 @@ namespace InvestmentService.DataAccess.Repositories
             filter ??= new DiscretionaryRuleFilter();
 
             var discretionaryRules = await _dbContext.DiscretionaryRules
+                .Include(discretionaryInfo => discretionaryInfo.ConsultantInfo)
+                .Include(discretionaryInfo => discretionaryInfo.CustomerInfo)
                 .Where(discretionaryRule =>
                     (!filter.CustomerId.HasValue || discretionaryRule.CustomerId == filter.CustomerId)
                     && (!filter.ConsultantId.HasValue || discretionaryRule.ConsultantId == filter.ConsultantId)

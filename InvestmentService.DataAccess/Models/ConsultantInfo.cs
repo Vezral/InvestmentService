@@ -10,5 +10,7 @@ namespace InvestmentService.DataAccess.Models
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
         public string? MobileNo { get; set; }
+
+        public List<CustomerInfo> CustomerInfos { get; set; } = null!;
     }
 }

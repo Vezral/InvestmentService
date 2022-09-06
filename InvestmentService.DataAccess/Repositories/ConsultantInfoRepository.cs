@@ -20,7 +20,10 @@ namespace InvestmentService.DataAccess.Repositories
 
         public async Task<ConsultantInfo?> GetAsync(int id)
         {
-            return await _dbContext.ConsultantInfo.SingleOrDefaultAsync(consultantInfo => consultantInfo.ConsultantInfoId == id);
+            return await _dbContext.ConsultantInfo
+                .Include(consultantInfo => consultantInfo.CustomerInfos)
+                .ThenInclude(customerInfo => customerInfo.DiscretionaryRules)
+                .SingleOrDefaultAsync(consultantInfo => consultantInfo.ConsultantInfoId == id);
         }
 
         public async Task<List<ConsultantInfo>> GetAsync(ConsultantInfoFilter? filter = null)
@@ -28,6 +31,8 @@ namespace InvestmentService.DataAccess.Repositories
             filter ??= new ConsultantInfoFilter();
 
             var consultantInfos = await _dbContext.ConsultantInfo
+                .Include(consultantInfo => consultantInfo.CustomerInfos)
+                .ThenInclude(customerInfo => customerInfo.DiscretionaryRules)
                 .Where(consultantInfo =>
                     (!filter.ConsultantId.HasValue || consultantInfo.ConsultantInfoId == filter.ConsultantId)
                 )
